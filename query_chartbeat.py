@@ -53,7 +53,7 @@ minute = str(now.minute)
 base_uri = 'http://api.chartbeat.com/live/recent/v3/?apikey='
 APIKEY = '317a25eccba186e0f6b558f45214c0e7'
 HOST = 'avc.com'
-query_url = base_uri + APIKEY + '&host=' + HOST + '&limit=2000'
+query_url = base_uri + APIKEY + '&host=' + HOST + '&limit=8000'
 
 rsp = get_json(query_url)
 
