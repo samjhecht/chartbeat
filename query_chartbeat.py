@@ -68,7 +68,7 @@ with gzip.open(ubuntu_filename, 'w') as log_file:
 log_file.close()
 
 #set filepath where you want to save file on s3
-s3_filename = '/chartbeat_data/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute + '.gz'
+s3_filename = '/chartbeat_data/raw/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute + '.gz'
 
 #Import s3 credentials from local directory
 cred_file = open('/home/ubuntu/keys/s3_creds_mmx.json')
