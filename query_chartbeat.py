@@ -3,6 +3,7 @@ import json, csv
 import pprint as pp
 import random
 import time
+import gzip
 from datetime import datetime, timedelta
 import os, re, sys
 from boto.s3.connection import S3Connection
@@ -56,9 +57,9 @@ query_url = base_uri + APIKEY + '&host=' + HOST + '&limit=2000'
 
 rsp = get_json(query_url)
 
-ubuntu_filename = '/home/ubuntu/billing/temp_store/' + 'chartbeat_data_' + year + month + day + minute
+ubuntu_filename = '/home/ubuntu/billing/temp_store/' + 'chartbeat_data_' + year + month + day + minute + '.gz'
 
-with open(ubuntu_filename, 'w') as log_file:
+with gzip.open(ubuntu_filename, 'w') as log_file:
     # utc_timestamp = datetime.fromtimestamp(int(token['utc'])).strftime('%Y-%m-%d %H:%M:%S')
     # if utc_timestamp >= min_time:
     for token in rsp:
@@ -67,7 +68,7 @@ with open(ubuntu_filename, 'w') as log_file:
 log_file.close()
 
 #set filepath where you want to save file on s3
-s3_filename = '/chartbeat_data/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute
+s3_filename = '/chartbeat_data/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute + '.gz'
 
 #Import s3 credentials from local directory
 cred_file = open('/home/ubuntu/keys/s3_creds_mmx.json')

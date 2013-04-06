@@ -3,6 +3,7 @@ import json, csv
 import pprint as pp
 import random
 import time
+import gzip
 from datetime import datetime, timedelta
 import os, re, sys
 from boto.s3.connection import S3Connection
@@ -57,10 +58,9 @@ query_url = base_uri + APIKEY + '&host=' + HOST + '&limit=2'
 
 rsp = get_json(query_url)
 
-local_filename = '/Users/samjulius/Desktop/chartbeat_data/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute
-ubuntu_filename
+local_filename = '/Users/samjulius/Desktop/chartbeat_data/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute + '.gz'
 
-with open(local_filename, 'w') as log_file:
+with gzip.open(local_filename, 'w') as log_file:
 	# utc_timestamp = datetime.fromtimestamp(int(token['utc'])).strftime('%Y-%m-%d %H:%M:%S')
 	# if utc_timestamp >= min_time:
 	for token in rsp:
@@ -69,13 +69,13 @@ with open(local_filename, 'w') as log_file:
 log_file.close()
 
 #set filepath where you want to save file on s3
-s3_filename = '/chartbeat_data/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute
+# s3_filename = '/chartbeat_data/y=' + year + '/m=' + month + '/d=' + day + '/h=' + hour + '/' + 'chartbeat_data_' + year + month + day + minute + '.gz'
 
-#write ledger to s3 folder for pickup
-s3 = boto.connect_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-bucket = s3.get_bucket('metamx-shecht')
-key = bucket.new_key(s3_filename)
-key.set_contents_from_filename(ec2_filename)
+# #write ledger to s3 folder for pickup
+# s3 = boto.connect_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+# bucket = s3.get_bucket('metamx-shecht')
+# key = bucket.new_key(s3_filename)
+# key.set_contents_from_filename(ec2_filename)
 
-cred_file.close()
+# cred_file.close()
 
