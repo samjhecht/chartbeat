@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import urllib2, urllib
 import json, csv
 import pprint as pp
